@@ -72,4 +72,10 @@ public class Usuario {
         return Id;
     }
 
+    public void agregar(Rol perfil) {
+        if (this.Roles == null) {
+            this.Roles = new ArrayList<>();
+        }
+        this.Roles.add(perfil);
+    }
 }

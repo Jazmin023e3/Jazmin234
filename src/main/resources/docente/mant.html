@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/_mainLayout}">
+<head>
+    <title layout:fragment="title" th:text="'Docente - ' + ${action}">Docente</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h2 th:text="${action == 'create' ? 'Crear Docente' : 
+                  action == 'edit' ? 'Editar Docente' : 
+                  action == 'view' ? 'Ver Docente' : 
+                  action == 'delete' ? 'Eliminar Docente' : 'Docente'}"></h2>
+
+    <form th:action="@{${action == 'create' ? '/docentes/create' : 
+                      action == 'edit' ? '/docentes/edit' : 
+                      action == 'delete' ? '/docentes/delete' : '#'}}" 
+          th:object="${docente}" method="post">
+
+        <input type="hidden" th:if="${docente.id != null}" th:field="*{id}" />
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" th:field="*{nombre}" id="nombre" class="form-control" 
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" th:field="*{apellido}" id="apellido" class="form-control"
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" th:field="*{email}" id="email" class="form-control"
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" th:field="*{telefono}" id="telefono" class="form-control"
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="escuela" class="form-label">Escuela</label>
+            <input type="text" th:field="*{escuela}" id="escuela" class="form-control"
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('escuela')}" th:errors="*{escuela}"></div>
+        </div>
+
+
+        <div th:if="${action != 'view'}" class="mb-3">
+            <button type="submit" 
+                    th:text="${action == 'delete' ? 'Confirmar Eliminación' : 'Guardar'}" 
+                    class="btn" 
+                    th:classappend="${action == 'delete' ? 'btn-danger' : 'btn-primary'}"></button>
+            <a th:href="@{/docentes}" class="btn btn-secondary">Cancelar</a>
+        </div>
+
+        <div th:if="${action == 'view'}" class="mb-3">
+            <a th:href="@{/docentes}" class="btn btn-secondary">Regresar</a>
+        </div>
+
+    </form>
+</section>
+</body>
+</html>
