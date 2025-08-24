@@ -28,7 +28,7 @@ public class DatabaseWebSecurity {
         return users;
     }
 
-   @Bean
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/assets/**", "/css/**", "/js/**","/images/**","/fonts/**","/error", "/", "/privacy", "/terms").permitAll()
@@ -40,9 +40,9 @@ public class DatabaseWebSecurity {
                 .anyRequest().authenticated()
         );
         http.formLogin(form -> form
-            .loginPage("/login").permitAll()
-            .defaultSuccessUrl("/", true) 
-     );
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/home", true) // <-- ¡El cambio está aquí!
+        );
         return http.build();
     }
 
