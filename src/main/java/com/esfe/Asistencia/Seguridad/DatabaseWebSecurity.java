@@ -41,7 +41,7 @@ public class DatabaseWebSecurity {
         );
         http.formLogin(form -> form
                 .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/home", true) // <-- ¡El cambio está aquí!
+                .defaultSuccessUrl("/", true)
         );
         return http.build();
     }

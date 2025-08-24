@@ -3,69 +3,71 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/_mainLayout}">
 <head>
-    <title layout:fragment="title">Listado de Grupos</title>
+    <title layout:fragment="title" th:text="'Docente - ' + ${action}">Docente</title>
 </head>
 <body>
 <section layout:fragment="content">
-    <div th:if="${msg != null }">
-        <script>
-            swal({
-            title:"Confirmacion",
-            text: '[[ ${msg} ]]',
-            icon: "success"
-            });
-        </script>
-    </div>
-    <div th:if="${error != null }">
-        <script>
-            swal({
-            title:"Error",
-            text: '[[ ${error} ]]',
-            icon: "error"
-            });
-        </script>
-    </div>
-    <h2>Listado de Grupos</h2>
+    <h2 th:text="${action == 'create' ? 'Crear Docente' : 
+                  action == 'edit' ? 'Editar Docente' : 
+                  action == 'view' ? 'Ver Docente' : 
+                  action == 'delete' ? 'Eliminar Docente' : 'Docente'}"></h2>
 
-  
-    <div class="mb-3">
-    <a th:href="@{/grupos/create}" class="btn btn-success">Nuevo Grupo</a>
-    </div>
+    <form th:action="@{${action == 'create' ? '/docentes/create' : 
+                      action == 'edit' ? '/docentes/edit' : 
+                      action == 'delete' ? '/docentes/delete' : '#'}}" 
+          th:object="${docente}" method="post">
 
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="grupo : ${grupos.content}">
-            <td th:text="${grupo.nombre}">Nombre</td>
-            <td th:text="${grupo.descripcion}">Descripción</td>
-            <td>
-            <a th:href="@{/grupos/view/{id}(id=${grupo.id})}" class="btn btn-info btn-sm">Ver</a>
-            <a th:href="@{/grupos/edit/{id}(id=${grupo.id})}" class="btn btn-warning btn-sm">Editar</a>
-            <a th:href="@{/grupos/delete/{id}(id=${grupo.id})}" class="btn btn-danger btn-sm">Eliminar</a>
-           </td>
-        </tr>
-        <tr th:if="${grupos.totalElements == 0}">
-            <td colspan="4" class="text-center">No hay grupos registrados.</td>
-        </tr>
-        </tbody>
-    </table>
+        <input type="hidden" th:if="${docente.id != null}" th:field="*{id}" />
 
-    <nav th:if="${pageNumbers}">
-        <ul class="pagination justify-content-center">
-            <li th:each="pageNum : ${pageNumbers}" class="page-item"
-                th:classappend="${pageNum == grupos.number + 1} ? 'active'">
-                <a class="page-link" th:href="@{/grupos(page=${pageNum}, size=${grupos.size})}" th:text="${pageNum}"></a>
-            </li>
-        </ul>
-    </nav>
-   
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" th:field="*{nombre}" id="nombre" class="form-control" 
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" th:field="*{apellido}" id="apellido" class="form-control"
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" th:field="*{email}" id="email" class="form-control"
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" th:field="*{telefono}" id="telefono" class="form-control"
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="escuela" class="form-label">Escuela</label>
+            <input type="text" th:field="*{escuela}" id="escuela" class="form-control"
+                   th:attr="readonly=${action=='view' or action=='delete'}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('escuela')}" th:errors="*{escuela}"></div>
+        </div>
+
+
+        <div th:if="${action != 'view'}" class="mb-3">
+            <button type="submit" 
+                    th:text="${action == 'delete' ? 'Confirmar Eliminación' : 'Guardar'}" 
+                    class="btn" 
+                    th:classappend="${action == 'delete' ? 'btn-danger' : 'btn-primary'}"></button>
+            <a th:href="@{/docentes}" class="btn btn-secondary">Cancelar</a>
+        </div>
+
+        <div th:if="${action == 'view'}" class="mb-3">
+            <a th:href="@{/docentes}" class="btn btn-secondary">Regresar</a>
+        </div>
+
+    </form>
 </section>
-
 </body>
 </html>
