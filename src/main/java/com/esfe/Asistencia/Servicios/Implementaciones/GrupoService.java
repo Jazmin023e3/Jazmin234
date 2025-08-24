@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.esfe.Asistencia.Modelos.Grupo;
+import com.esfe.Asistencia.Modelos.Usuario;
 import com.esfe.Asistencia.Repositorios.IGrupoRepository;
 import com.esfe.Asistencia.Servicios.Interfaces.IGrupoService;
 
@@ -42,6 +43,18 @@ public class GrupoService implements IGrupoService {
     public  void eliminarPorId(Integer id){
         grupoRepository.deleteById(id);
     }
+
+     @Override
+     public Page<UsuarioService> obtenerTodosPaginados(Pageable pageable) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'obtenerTodosPaginados'");
+     }
+
+     @Override
+     public void crearOeditar(Usuario usuario) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'crearOeditar'");
+     }
 
 
 

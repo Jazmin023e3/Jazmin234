@@ -3,6 +3,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+
+import com.esfe.Asistencia.Modelos.Rol;
 import com.esfe.Asistencia.Modelos.Usuario;
 import com.esfe.Asistencia.Repositorios.IUsuarioRepository;
 import com.esfe.Asistencia.Servicios.Interfaces.IUsuarioService;
@@ -35,5 +37,10 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public void eliminarPorId(Integer id) {
         usuarioRepository.deleteById(id);
+    }
+
+    public void agregar(Rol perfil) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'agregar'");
     }
 }
