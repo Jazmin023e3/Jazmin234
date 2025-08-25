@@ -1,0 +1,66 @@
+<html lang="en"
+xmlns="http://thymeleaf.org"
+xmlns:x="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/_MainLayout}">
+
+<div layout:fragment="content">
+    <!--mostrar este mensaje en caso de exito-->
+    <div th:if="${msg != null}">
+        <script>
+            swal.fire({
+                title: "confirmacion",
+                text: '[[${msg}]]',
+                icon: "success"
+            });
+        </script>
+    </div>
+
+    <!--mostrar mensaje en caso de error-->
+    <div th:if="${error != null}">
+        <script>
+            swal.fire({
+                title: "Error",
+                text: '[[${error}]]',
+                icon: "error"
+            });
+        </script>
+    </div>
+
+    <h1>Listado de usuarios</h1>
+    <a th:href="@{/usuarios/create}" class="btn btn-outline-primary">Crear nuevo usuario</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Login</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="item : ${usuarios}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.login}"></td>
+            <td th:text="${item.status==1} ? 'Activo' : 'Inactivo'"></td>
+            <td>
+                <a th:href="@{/usuarios/details/{id} (id=${item.id})}" class="btn btn-outline-secondary">Detalles</a>
+                <a th:href="@{/usuarios/remove/{id} (id=${item.id})}" class="btn btn-outline-danger">Eliminar</a>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+ <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item" th:each="pageNumber : ${pageNumbers}">
+                <a class="page-link" th:href="@{|/usuarios?page=${pageNumber}|}" th:text="${pageNumber}"></a>
+            </li>
+        </ul>
+</nav>
+
+</div>
+
+</html>

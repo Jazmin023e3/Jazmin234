@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AsistenciaApplication<Asistencia>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.esfe.Asistencia.AsistenciaApplication",
+            "projectName": "Asistencia",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

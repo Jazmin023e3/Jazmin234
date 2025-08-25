@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+
+<style>
+    /* Fondo general */
+body {
+    background: linear-gradient(135deg, #6a0dad, #ff7f50); /* morado y anaranjado degradado */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+/* Caja del login */
+.login-box {
+    background: #fff; /* blanco */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Icono superior */
+.key {
+    font-size: 50px;
+    color: #6a0dad; /* morado */
+    margin-bottom: 15px;
+}
+
+/* Título */
+.login-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff7f50; /* anaranjado */
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+/* Labels */
+.form-control-label {
+    font-weight: bold;
+    color: #6a0dad;
+    margin-bottom: 8px;
+    display: block;
+    text-align: left;
+}
+
+/* Inputs */
+.form-control {
+    border: 2px solid #6a0dad;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    transition: 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #ff7f50;
+    box-shadow: 0 0 8px rgba(255, 127, 80, 0.5);
+    outline: none;
+}
+
+/* Botón */
+.btn {
+    background: #6a0dad;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s ease;
+    width: 100%;
+}
+
+.btn:hover {
+    background: #ff7f50;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Mensajes de error y logout */
+.login-text p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-2"></div>
+            <div class="col-lg-6 col-md-8 login-box">
+                <div class="col-lg-12 key">
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                </div>
+            <div class="col-lg-12 login-title">
+                Admin panel
+            </div>
+
+            <div class="col-lg-12 login-form">
+                <div class="col-lg-12 login-form"></div>
+                <form th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label class="form-control-label">Usuario</label>
+                        <input type="text" name="username" class="form-control" >
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label">Clave:</label>
+                        <input type="password" name="password" class="form-control" >
+                    </div>
+
+                    <div class="col-lg-12 loginbttm">
+                        <div class="col-lg-6 login-btm login-text">
+                            <!-- Error Message -->
+                            <p th:if="${param.error}" style="color:red">Nombre de usuario o clave incorrecta.</p>
+                            <p th:if="${param.logout}" style="color:green">Has cerrado sesión correctamente.</p>
+                        </div>
+                        <div class="col-lg-6 login-btm login-button">
+                            <button type="submit" class="btn btn-outline-primary">INGRESAR</button>
+                        </div>
+                </form>
+            </div>
+</body>
+</html>
